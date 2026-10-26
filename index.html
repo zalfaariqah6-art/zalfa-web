@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ZALFA — Portofolio Mahasiswa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ===== 1. WARNA & FONT — ubah di sini, seluruh website ikut berubah ===== */
+:root{
+  --bg:#0f1020; --card:#191a30; --text:#f4efe6; --muted:#b8b6c9;
+  --accent:#ff6b4a;   /* koral */
+  --accent2:#d4ff4f;  /* lime */
+  --violet:#6a5cff;
+  --display:'Syne','Trebuchet MS',sans-serif;
+  --body:'DM Sans','Segoe UI',Arial,sans-serif;
+  --ease:cubic-bezier(.2,.8,.2,1);
+  color-scheme:dark; box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--body);line-height:1.65;overflow-x:hidden}
+/* tekstur "grain" tipis agar tampilan tidak datar */
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:90;opacity:.07;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E")}
+a{color:inherit;text-decoration:none}
+section{padding:100px 6vw;max-width:1200px;margin:0 auto}
+h2{font-family:var(--display);font-size:clamp(2.2rem,6vw,4rem);margin:0 0 12px;line-height:1.05;letter-spacing:-.02em}
+h2 em{font-style:normal;color:var(--accent2)}
+.sec-head{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap}
+.num{font-family:var(--display);font-weight:800;font-size:1rem;color:var(--bg);background:var(--accent);padding:4px 12px;border-radius:99px}
+.label{color:var(--muted);font-weight:700;letter-spacing:.15em;text-transform:uppercase;font-size:.8rem}
+
+/* ===== 2. NAVBAR ===== */
+nav{position:fixed;top:0;left:0;right:0;z-index:80;display:flex;justify-content:space-between;align-items:center;
+  padding:14px 6vw;padding-top:calc(14px + env(safe-area-inset-top,0px));background:rgba(15,16,32,.82);backdrop-filter:blur(12px)}
+.logo{font-family:var(--display);font-weight:800;font-size:1.3rem}
+.logo b{color:var(--accent)}
+nav ul{display:flex;gap:6px;list-style:none;margin:0;padding:0}
+nav ul a{display:block;font-weight:500;color:var(--muted);padding:7px 16px;border-radius:99px;transition:background .3s,color .3s}
+nav ul a:hover{color:var(--text);background:rgba(255,255,255,.08)}
+nav ul a.active{color:var(--bg);background:var(--accent2)}
+.burger{display:none;background:none;border:2px solid var(--muted);color:var(--text);border-radius:10px;padding:6px 12px;font-size:1.1rem;cursor:pointer}
+#bar{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--accent),var(--accent2));z-index:95}
+#glow{position:fixed;top:0;left:0;width:420px;height:420px;margin:-210px 0 0 -210px;border-radius:50%;pointer-events:none;z-index:1;
+  background:radial-gradient(circle,rgba(106,92,255,.22),transparent 65%);opacity:0;transition:opacity .4s}
+
+/* ===== 3. HERO ===== */
+#hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;position:relative;max-width:none;overflow:hidden}
+#hero .inner{max-width:1200px;margin:0 auto;width:100%;position:relative;z-index:2}
+.blob{position:absolute;border-radius:50%;filter:blur(70px);opacity:.4;animation:float 10s ease-in-out infinite}
+.b1{width:340px;height:340px;background:var(--accent);right:-60px;top:10%}
+.b2{width:260px;height:260px;background:var(--violet);right:24%;bottom:6%;animation-delay:-4s}
+@keyframes float{50%{transform:translate(-30px,40px) scale(1.1)}}
+.status{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--muted);border-radius:99px;padding:6px 16px;font-size:.9rem;color:var(--muted)}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--accent2);animation:pulse 1.8s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(212,255,79,.6)}100%{box-shadow:0 0 0 9px rgba(212,255,79,0)}}
+h1{font-family:var(--display);font-weight:800;font-size:clamp(2.2rem,11.5vw,9.5rem);line-height:1;margin:22px 0;letter-spacing:-.03em;white-space:nowrap}
+.l{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.1em}
+.l i{display:inline-block;font-style:normal;transform:translateY(115%) rotate(8deg);animation:rise .9s var(--ease) forwards;animation-delay:calc(var(--i)*.06s + .25s)}
+.l:nth-child(even) i{color:transparent;-webkit-text-stroke:2px var(--text)}
+.l:last-child i{color:var(--accent2);-webkit-text-stroke:0}
+@keyframes rise{to{transform:none}}
+.fade{opacity:0;transform:translateY(22px);animation:up .9s var(--ease) forwards;animation-delay:var(--d,1s)}
+@keyframes up{to{opacity:1;transform:none}}
+.lead{max-width:540px;font-size:1.15rem;color:var(--muted)}
+.sticker{position:absolute;right:6vw;bottom:12%;width:130px;height:130px;z-index:2;animation:spin 18s linear infinite}
+.sticker text{font-family:var(--display);font-weight:800;font-size:11.5px;letter-spacing:2px;fill:var(--accent2)}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ===== 4. TOMBOL (efek isi warna saat hover) ===== */
+.btn{position:relative;overflow:hidden;display:inline-block;background:var(--accent2);color:#0f1020;font-weight:700;padding:14px 32px;border-radius:99px;margin-top:12px;border:2px solid var(--accent2);cursor:pointer;font-size:1rem;z-index:0;transition:transform .35s var(--ease),color .35s}
+.btn::before{content:"";position:absolute;inset:0;background:var(--accent);transform:translateY(101%);transition:transform .4s var(--ease);z-index:-1}
+.btn:hover{transform:translateY(-4px);color:#fff;border-color:var(--accent)}
+.btn:hover::before{transform:none}
+.btn:active{transform:translateY(0) scale(.97)}
+.btn.alt{background:transparent;color:var(--text);border-color:var(--muted)}
+.btn.alt::before{background:var(--accent2)}
+.btn.alt:hover{color:#0f1020;border-color:var(--accent2)}
+
+/* ===== 5. MARQUEE ===== */
+.marquee{background:var(--accent);color:#0f1020;overflow:hidden;white-space:nowrap;padding:14px 0;transform:rotate(-1.5deg);margin:20px -2vw;position:relative;z-index:2}
+.marquee div{display:inline-block;font-family:var(--display);font-weight:800;font-size:1.3rem;animation:scroll 26s linear infinite}
+@keyframes scroll{to{transform:translateX(-50%)}}
+
+/* ===== 6. ABOUT & SKILLS ===== */
+.about{display:grid;grid-template-columns:1fr 1.4fr;gap:56px;align-items:center;margin-top:36px}
+.photo{position:relative;aspect-ratio:4/5;border-radius:28px 28px 120px 28px;background:linear-gradient(150deg,var(--accent),var(--violet));display:grid;place-items:center;font-family:var(--display);font-size:6rem;font-weight:800;transform:rotate(-3deg);box-shadow:14px 14px 0 var(--accent2)}
+.about p{color:var(--muted);font-size:1.1rem}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.chip{border:1px solid var(--muted);border-radius:99px;padding:8px 18px;font-weight:500;transition:.3s var(--ease)}
+.chip:hover{background:var(--accent2);color:#0f1020;border-color:var(--accent2);transform:translateY(-3px) rotate(-2deg)}
+.skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;margin-top:36px}
+.skill{background:var(--card);border:1px solid rgba(255,255,255,.08);border-radius:24px;padding:28px;transition:transform .4s var(--ease),border-color .4s}
+.skill:hover{transform:translateY(-6px);border-color:var(--accent2)}
+.skill h3{margin:0 0 14px;font-family:var(--display);font-size:1.25rem}
+.meter{height:8px;background:#2a2b48;border-radius:9px;margin:6px 0 16px;overflow:hidden}
+.meter i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:9px;transition:width 1.4s var(--ease) .3s}
+.visible .meter i{width:var(--w)}
+.skill small{color:var(--muted)}
+
+/* ===== 7. PROYEK (hover: miring 3D + naik + gambar zoom) ===== */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:28px;margin-top:36px}
+.proj{position:relative;display:block;background:var(--card);border:1px solid rgba(255,255,255,.08);border-radius:28px;overflow:hidden;
+  transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) translateY(var(--y,0));
+  transition:transform .3s var(--ease),box-shadow .4s,border-color .4s}
+.proj:hover{--y:-12px;border-color:var(--accent);box-shadow:0 22px 0 -8px var(--accent)}
+.thumb{height:220px;overflow:hidden;display:grid;place-items:center;font-size:4.2rem;position:relative}
+.thumb span{transition:transform .7s var(--ease)}
+.proj:hover .thumb span{transform:scale(1.4) rotate(12deg)}
+.t1{background:linear-gradient(135deg,#ff6b4a,#ffb347)}
+.t2{background:linear-gradient(135deg,#6a5cff,#37d0ff)}
+.t3{background:linear-gradient(135deg,#d4ff4f,#3ddc97)}
+.pn{position:absolute;top:14px;left:18px;font-family:var(--display);font-weight:800;color:#0f1020;opacity:.7}
+.proj .body{padding:24px;position:relative}
+.proj h3{margin:0 0 8px;font-family:var(--display);font-size:1.35rem}
+.proj p{margin:0 0 14px;color:var(--muted)}
+.tag{font-size:.8rem;color:var(--accent2);font-weight:700}
+.arrow{position:absolute;right:22px;top:22px;width:42px;height:42px;border-radius:50%;background:var(--accent2);color:#0f1020;display:grid;place-items:center;font-weight:800;
+  opacity:0;transform:translate(-10px,10px) rotate(-45deg);transition:.45s var(--ease)}
+.proj:hover .arrow{opacity:1;transform:none}
+
+/* ===== 8. KONTAK ===== */
+#contact{text-align:center}
+#contact h2{font-size:clamp(2.6rem,9vw,6.5rem)}
+#contact p{color:var(--muted);max-width:520px;margin:0 auto 24px}
+.social{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:22px}
+footer{text-align:center;padding:30px;color:var(--muted);font-size:.9rem}
+
+/* ===== 9. ANIMASI REVEAL SAAT SCROLL ===== */
+.reveal{opacity:0;transform:translateY(44px);transition:opacity .9s var(--ease),transform .9s var(--ease);transition-delay:var(--d,0s)}
+.reveal[data-r="left"]{transform:translateX(-50px)}
+.reveal[data-r="scale"]{transform:scale(.92)}
+.reveal.visible{opacity:1;transform:none}
+
+/* ===== 10. RESPONSIF HP ===== */
+@media(max-width:760px){
+  .burger{display:block}
+  nav ul{position:absolute;top:100%;left:0;right:0;flex-direction:column;background:var(--bg);padding:8px 6vw 18px;display:none}
+  nav ul.open{display:flex}
+  .about{grid-template-columns:1fr}
+  .photo{max-width:260px;font-size:5rem}
+  .sticker{width:92px;height:92px;bottom:5%}
+  section{padding:72px 6vw}
+  .l:nth-child(even) i{-webkit-text-stroke-width:1.5px}
+}
+
+/* ===== 11. HORMATI PENGGUNA YANG MEMATIKAN ANIMASI ===== */
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .l i,.fade,.reveal{opacity:1!important;transform:none!important}
+  .meter i{width:var(--w)}
+  #glow{display:none}
+}
+</style>
+</head>
+<body>
+<div id="bar"></div><div id="glow"></div>
+
+<!-- NAVBAR -->
+<nav>
+  <a href="#hero" class="logo">ARZALFAAL<b>.</b></a>
+  <button class="burger" id="burger" aria-label="Buka menu">☰</button>
+  <ul id="menu">
+    <li><a href="#hero">Beranda</a></li>
+    <li><a href="#about">Tentang</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Proyek</a></li>
+    <li><a href="#contact">Kontak</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="blob b1"></div><div class="blob b2"></div>
+  <svg class="sticker" viewBox="0 0 130 130" aria-hidden="true">
+    <defs><path id="c" d="M65,65 m-48,0 a48,48 0 1,1 96,0 a48,48 0 1,1 -96,0"/></defs>
+    <text><textPath href="#c">MAHASISWA ✦ PORTOFOLIO ✦ MAHASISWA ✦</textPath></text>
+  </svg>
+  <div class="inner">
+    <div class="status fade" style="--d:.1s"><i class="dot"></i> Mahasiswa · [Nama Jurusanmu]</div>
+    <h1 id="name">ARZALFAAL</h1> <!-- ✏️ Ubah nama di sini. Huruf dipecah otomatis oleh JavaScript -->
+    <p class="lead fade" style="--d:.9s">Halo! Aku mahasiswa yang suka belajar hal baru dan membuat karya yang berguna. Ini adalah ruang untuk menampilkan perjalananku. <!-- ✏️ GANTI deskripsi singkatmu --></p>
+    <a href="#projects" class="btn fade" style="--d:1.1s">Lihat Proyek ↓</a>
+  </div>
+</section>
+
+<div class="marquee" aria-hidden="true"><div>
+  ✦ BELAJAR ✦ BERKARYA ✦ BERTUMBUH ✦ BELAJAR ✦ BERKARYA ✦ BERTUMBUH ✦ BELAJAR ✦ BERKARYA ✦ BERTUMBUH ✦ BELAJAR ✦ BERKARYA ✦ BERTUMBUH
+</div></div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="sec-head reveal"><span class="num">01</span><span class="label">Tentang Aku</span></div>
+  <h2 class="reveal">Kenalan <em>dulu</em>, yuk!</h2>
+  <div class="about">
+    <div class="photo reveal" data-r="left" role="img" aria-label="Foto placeholder">A</div> <!-- ✏️ Nanti ganti dengan foto: <img src="fotoku.jpg"> -->
+    <div class="reveal" style="--d:.15s">
+      <p>Haiii,, Selamat menjelajahi website akuu.. kenalin aku Ariqah Zalfa Al Farois sering di panggil Zalfa. Aku saat ini bersekolah di SMKN 1 Pengasih. Aku buat website ini untuk sekedar hiburan aku ,, makasih udaa mampir kapan kapan balik lagi yaa.... .</p>
+      <p>Salam kenal semuanyaa....</p>
+      <div class="chips"><span class="chip">📚 Belajar</span><span class="chip">✏️Menggambar</span><span class="chip">🎨Mewarnai</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="sec-head reveal"><span class="num">02</span><span class="label">Kemampuan</span></div>
+  <h2 class="reveal">Skills &amp; <em>Tools</em></h2>
+  <div class="skills stagger">
+    <!-- ✏️ Atur lebar bar di --w:xx%. Semua isi hanya contoh -->
+    <div class="skill reveal"><h3>Keahlian</h3>
+      <small> Desain</small><div class="meter"><i style="--w:80%"></i></div>
+      <small>Fotografi</small><div class="meter"><i style="--w:90%"></i></div>
+      <small>Editing Video</small><div class="meter"><i style="--w:85%"></i></div></div>
+    <div class="skill reveal"><h3>Tools</h3>
+      <small>CapCut</small><div class="meter"><i style="--w:85%"></i></div>
+      <small>Canva</small><div class="meter"><i style="--w:80%"></i></div>
+      <small>Adobe Ilustrator</small><div class="meter"><i style="--w:75%"></i></div></div>
+    <div class="skill reveal"><h3>Soft Skills</h3>
+      <div class="chips" style="margin-top:0"><span class="chip">Kerja sama tim</span><span class="chip">Komunikasi</span><span class="chip">Manajemen waktu</span><span class="chip">[Lainnya]</span></div></div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="sec-head reveal"><span class="num">03</span><span class="label">Karya</span></div>
+  <h2 class="reveal">Proyek <em>Pilihan</em></h2>
+  <div class="grid stagger">
+    <!-- ✏️ Gambar sementara = warna + emoji. Ganti dengan <img src="gambar.jpg"> jika sudah punya -->
+    <a href="#" class="proj reveal" data-r="scale"><div class="thumb t1"><span class="pn">01</span><span><img src="images/foto.2.jpg"></span></div><div class="body"><span class="arrow">↗</span><span class="tag">[Kategori]</span><h3>Proyek 1</h3><p>Deskripsi singkat tentang proyek ini dan apa yang kamu pelajari.</p></div></a>
+    <a href="#" class="proj reveal" data-r="scale"><div class="thumb t2"><span class="pn">02</span><span><img src="images/foto.2.jpg"></span></div><div class="body"><span class="arrow">↗</span><span class="tag">[Kategori]</span><h3>Proyek 2</h3><p>Deskripsi singkat tentang proyek ini dan apa yang kamu pelajari.</p></div></a>
+    <a href="#" class="proj reveal" data-r="scale"><div class="thumb t3"><span class="pn">03</span><span><img src="images/foto3.jpeg"></span></div><div class="body"><span class="arrow">↗</span><span class="tag">[Kategori]</span><h3>Proyek 3</h3><p>Deskripsi singkat tentang proyek ini dan apa yang kamu pelajari.</p></div></a>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="sec-head reveal" style="justify-content:center"><span class="num">04</span><span class="label">Kontak</span></div>
+  <h2 class="reveal">Yuk, <em>ngobrol!</em></h2>
+  <p class="reveal">Terbuka untuk kolaborasi, magang, atau sekadar berkenalan.</p>
+  <a class="btn reveal" href="mailto:zalfaariqah6@gmail.com">✉ Kirim Email</a> <!-- ✏️ GANTI alamat email -->
+  <div class="social reveal">
+    <a class="btn alt" href="https://www.instagram.com/arzalfaal">Instagram</a>
+    <a class="btn alt" href="https://www.tiktok.com/arzalfaal">TikTok</a>
+    <a class="btn alt" href="https://www.youtube.com/@arzalfaal">YouTube</a> <!-- ✏️ GANTI tanda # dengan link akunmu -->
+  </div>
+</section>
+
+<footer>© <span id="year"></span> ZALFA — dibuat dengan HTML, CSS &amp; JavaScript</footer>
+
+<script>
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const canHover = matchMedia('(hover: hover)').matches;
+
+// Tahun otomatis di footer
+document.getElementById('year').textContent = new Date().getFullYear();
+
+// Pecah nama di hero jadi huruf-huruf untuk animasi masuk
+const name = document.getElementById('name');
+const text = name.textContent.trim();
+name.setAttribute('aria-label', text);
+name.innerHTML = [...text].map((c, i) => `<span class="l" aria-hidden="true"><i style="--i:${i}">${c}</i></span>`).join('');
+
+// Menu HP: buka/tutup
+const menu = document.getElementById('menu');
+document.getElementById('burger').addEventListener('click', () => menu.classList.toggle('open'));
+menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => menu.classList.remove('open')));
+
+// Jeda bertahap (stagger) untuk kartu dalam satu baris
+document.querySelectorAll('.stagger').forEach(g =>
+  [...g.children].forEach((el, i) => el.style.setProperty('--d', i * .15 + 's')));
+
+// Reveal saat elemen masuk layar
+const io = new IntersectionObserver(es => es.forEach(e => {
+  if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+}), { threshold: .15 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+// Garis kemajuan scroll + penanda menu aktif
+const bar = document.getElementById('bar');
+const links = [...menu.querySelectorAll('a')];
+const secs = links.map(a => document.querySelector(a.getAttribute('href')));
+function onScroll() {
+  const h = document.documentElement;
+  bar.style.width = (h.scrollTop / (h.scrollHeight - h.clientHeight) * 100) + '%';
+  let cur = 0;
+  secs.forEach((s, i) => { if (s.getBoundingClientRect().top < innerHeight * .4) cur = i; });
+  links.forEach((a, i) => a.classList.toggle('active', i === cur));
+}
+addEventListener('scroll', onScroll, { passive: true });
+onScroll();
+
+// Efek halus yang hanya aktif di laptop (ada mouse) dan bila animasi tidak dimatikan
+if (canHover && !reduce) {
+  const glow = document.getElementById('glow');
+  addEventListener('mousemove', e => {
+    glow.style.opacity = 1;
+    glow.style.transform = `translate(${e.clientX}px,${e.clientY}px)`;
+  });
+  document.querySelectorAll('.proj').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const r = card.getBoundingClientRect();
+      card.style.setProperty('--ry', ((e.clientX - r.left) / r.width - .5) * 8 + 'deg');
+      card.style.setProperty('--rx', (.5 - (e.clientY - r.top) / r.height) * 8 + 'deg');
+    });
+    card.addEventListener('mouseleave', () => { card.style.setProperty('--rx', '0deg'); card.style.setProperty('--ry', '0deg'); });
+  });
+}
+</script>
+</body>
+</html>
